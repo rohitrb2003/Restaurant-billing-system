@@ -1,10 +1,9 @@
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-
-
-struct items{
+struct items
+{
     char item[20];
     float price;
     int qty;
@@ -17,93 +16,97 @@ struct orders
     int numOfItems;
     struct items itm[50];
 };
-void generateBillHeader(char name[50], char date[30]){
-         printf("\n\n");
-         printf("\n\t\t**********************");
-         printf("\n\t\tHAPPY WALLA RESTAUNTS");
-         printf("\n\t\t**********************");
-         printf("\nDate:%s",date);
-         printf("\nInvoice To : %s",name);
-         printf("\n");
-         printf("----------------------------------------------\n");
-         printf("Items\t\t");
-         printf("Qty\t\t");
-         printf("Total\t\t");
-         printf("\n----------------------------------------------");
-         printf("\n\n");
-}
-void generateBillBody(char item[30],int qyt,float price){
-        printf("%s\t\t",item);
-        printf("%d\t\t",qyt);
-        printf("%.2f\t\t",qyt*price);
-        printf("\n");
-}
-
-
-void generateBillFooter(float total){
+void generateBillHeader(char name[50], char date[30])
+{
+    printf("\n\n");
+    printf("\n\t\t**********************");
+    printf("\n\t\tHAPPY WALLA RESTAUNTS");
+    printf("\n\t\t**********************");
+    printf("\nDate:%s", date);
+    printf("\nInvoice To : %s", name);
     printf("\n");
-    float dis = 0.1* total;
-    float netTotal = total-dis;
-    float cgst =0.09*netTotal,grandTotal=netTotal+2*cgst;
-    float gst =2*cgst;
-    printf("----------------------------------------------");
-    printf("\nsub Total\t\t\t%.2f",total);
-    printf("\nDiscount @10%s\t\t\t%.2f","%",dis);
-    printf("\n----------------------------------------------\n");
-    printf("\nNet Total\t\t\t%.2f",netTotal);
-    printf("\n\n----------------------------------------------");
-    printf("\nCGST @9%s\t\t\t%.2f","%",cgst);
-    printf("\nSGST @9%s\t\t\t%.2f","%",cgst);
-    printf("\nTotal GST is @18%s\t\t%.2f","%",gst);
+    printf("----------------------------------------------\n");
+    printf("Items\t\t");
+    printf("Qty\t\t");
+    printf("Total\t\t");
     printf("\n----------------------------------------------");
-    printf("\nGrand Total\t\t\t%.2f",grandTotal);
+    printf("\n\n");
+}
+void generateBillBody(char item[30], int qyt, float price)
+{
+    printf("%s\t\t", item);
+    printf("%d\t\t", qyt);
+    printf("%.2f\t\t", qyt * price);
+    printf("\n");
+}
+
+void generateBillFooter(float total)
+{
+    printf("\n");
+    float dis = 0.1 * total;
+    float netTotal = total - dis;
+    float cgst = 0.09 * netTotal, grandTotal = netTotal + 2 * cgst;
+    float gst = 2 * cgst;
+    printf("----------------------------------------------");
+    printf("\nsub Total\t\t\t%.2f", total);
+    printf("\nDiscount @10%s\t\t\t%.2f", "%", dis);
+    printf("\n----------------------------------------------\n");
+    printf("\nNet Total\t\t\t%.2f", netTotal);
+    printf("\n\n----------------------------------------------");
+    printf("\nCGST @9%s\t\t\t%.2f", "%", cgst);
+    printf("\nSGST @9%s\t\t\t%.2f", "%", cgst);
+    printf("\nTotal GST is @18%s\t\t%.2f", "%", gst);
+    printf("\n----------------------------------------------");
+    printf("\nGrand Total\t\t\t%.2f", grandTotal);
     printf("\n----------------------------------------------");
 }
-int main(){
-  float total;
-  int opt,n;
-  struct orders ord;
-  FILE *fp;
-  
+int main()
+{
+    float total;
+    int opt, n;
+    struct orders ord;
+    FILE *fp;
 
     printf("\n\n\t================= Happy Walla Restro ===================");
     printf("\nPlease Select Your Prefered Operations");
     printf("\n<:><:> 1 Generate Invoice<:><:>");
     printf("\n\nYour Choice:");
-    scanf("%d",&opt);
+    scanf("%d", &opt);
     fgetc(stdin);
-   
-   switch(opt){
-    case 1:
-    printf("\nPlease Enter The Name Of Customer:\t");
-    fgets(ord.customer,50,stdin);
-    ord.customer[strlen(ord.customer)-1] = 0;
-    strcpy(ord.date,__DATE__);
-    printf("\nPlease Enter The Numbers Of Items:\t");
-    scanf("%d",&n);
-    ord.numOfItems = n;
-    for(int i=0; i<n;i++){
-        fgetc(stdin);
-        printf("\n\n");
-        printf("Please Enter The Item %d:\t",i+1);
-        fgets(ord.itm[i].item,20,stdin);
-        ord.itm[i].item[strlen(ord.itm[i].item)-1]=0;
-        printf("Please Enter The quantity :\t");
-        scanf("%d",&ord.itm[i].qty);
-        printf("Please enter the unit price:\t");
-        scanf("%f",&ord.itm[i].price);
-       total += ord.itm[i].qty * ord.itm[i].price;
-    }
 
-     generateBillHeader(ord.customer,ord.date);
-     for(int i=0; i<ord.numOfItems;i++){
-        generateBillBody(ord.itm[i].item,ord.itm[i].qty,ord.itm[i].price);
-         
-     }
-    generateBillFooter(total);
-    printf("\n\tYOUR INVOCE IS READY !");
-    printf("\n\tPlease Visit Again");
-   }
+    switch (opt)
+    {
+    case 1:
+        printf("\nPlease Enter The Name Of Customer:\t");
+        fgets(ord.customer, 50, stdin);
+        ord.customer[strlen(ord.customer) - 1] = 0;
+        strcpy(ord.date, __DATE__);
+        printf("\nPlease Enter The Numbers Of Items:\t");
+        scanf("%d", &n);
+        ord.numOfItems = n;
+        for (int i = 0; i < n; i++)
+        {
+            fgetc(stdin);
+            printf("\n\n");
+            printf("Please Enter The Item %d:\t", i + 1);
+            fgets(ord.itm[i].item, 20, stdin);
+            ord.itm[i].item[strlen(ord.itm[i].item) - 1] = 0;
+            printf("Please Enter The quantity :\t");
+            scanf("%d", &ord.itm[i].qty);
+            printf("Please enter the unit price:\t");
+            scanf("%f", &ord.itm[i].price);
+            total += ord.itm[i].qty * ord.itm[i].price;
+        }
+
+        generateBillHeader(ord.customer, ord.date);
+        for (int i = 0; i < ord.numOfItems; i++)
+        {
+            generateBillBody(ord.itm[i].item, ord.itm[i].qty, ord.itm[i].price);
+        }
+        generateBillFooter(total);
+        printf("\n\tYOUR INVOCE IS READY !");
+        printf("\n\tPlease Visit Again");
+    }
     printf("\n\n");
     return 0;
 }
