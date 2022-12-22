@@ -1,2 +1,2 @@
 # Shop-billing-system
-My first project using C language . 
+My first project using C++ language . 
